@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="{% static 'css/students/result.css' %}">
+</head>
+<body>
+
+    <div class="result-container">
+        <h2>🏆 Quiz Completed!</h2>
+        <p class="welcome">Well done, {{ user.username }}!</p>
+
+        <div class="score-box">
+            <p>Your Score:</p>
+            <h3></h3>
+        </div>
+
+        <div class="message">
+                <p>Perfect! You got all questions right! 🎉</p>
+                <p>Good job! You passed the quiz. 👍</p>
+                <p>Better luck next time. Keep practicing! 💪</p>
+        </div>
+
+        <a href="{% url 'question_home' %}" class="btn home-btn">Back to Home</a>
+    </div>
+
+</body>
+</html>

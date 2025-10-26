@@ -33,3 +33,16 @@ class Questions(models.Model):
 
     def __str__(self):
         return f"{self.question_text} {self.correct_answer}"
+
+
+
+class Result(models.Model):
+    student = models.ForeignKey(User,on_delete=models.CASCADE)
+    score = models.PositiveIntegerField(default=0)
+    total_questions = models.PositiveIntegerField(default=0)
+    percentage = models.FloatField(default=0.0)
+    attempt_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        
+        return f"{self.student.username}-{self.score}/{self.total_questions}"

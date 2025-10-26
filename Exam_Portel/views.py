@@ -1,4 +1,4 @@
-from .models import Profile, Questions
+from .models import Profile, Questions, Result
 from django import forms
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -17,8 +17,8 @@ def signup(request):
             user.save()
 
 
-            role = request.POST.get('role')
-            Profile.objects.create(user = user,role = form.cleaned_data['role'])
+            # role = request.POST.get('role')
+            Profile.objects.create(user = user,role='user')
             return redirect('signin')
     return render(request,'signup.html',{'form':form})
 
@@ -48,17 +48,31 @@ def question_home(request):
 
 def instruction(request):
 
+    request.session['score'] = 0
+
     return render(request,'students/instruction.html')
 
 def questions(request,q_no=1):
     total = Questions.objects.count() 
 
     if q_no > total:
+        score = request.session.get('score', 0)
+        percentage = (score/total)*100
+        student_profile = Profile.objects.get(user=request.user)
+
+        Result.objects.create(
+            student = request.user,
+            score = score,
+            total_questions = total,
+            percentage = percentage
+        )
+        request.session['score'] = 0
+
         return redirect('result')  
     question = get_object_or_404(Questions,id=q_no)
     if request.method == 'POST':
         selected_option = request.POST.get('answer')
-        score = request.session.get('session',0)
+        score = request.session.get('score', 0)
 
         if selected_option == question.correct_answer:
             score +=1
@@ -107,4 +121,4 @@ def view_questions(request):
 
 def result(request):
 
-    return render(request,'admin/result.html')
+    return render(request,'students/result.html')
