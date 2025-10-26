@@ -15,6 +15,9 @@
 
 <div class="form-container">
     <form method="post">
+        {% if message %}
+            {{message}}
+        {% endif %}
         {% csrf_token %}
         <label for="question_text">Question:</label>
         <input type="text" id="question_text" name="question_text" required>

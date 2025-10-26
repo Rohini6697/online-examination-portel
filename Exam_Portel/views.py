@@ -1,4 +1,4 @@
-from .models import Profile
+from .models import Profile, Questions
 from django import forms
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -62,17 +62,31 @@ def admin_dashboard(request):
 
 
 def add_questions(request):
+    message =''
+    if request.method == 'POST':
+        question_text = request.POST.get('question_text')
+        option1 = request.POST.get('option1')
+        option2 = request.POST.get('option2')
+        option3 = request.POST.get('option3')
+        option4 = request.POST.get('option4')
+        correct_answer = request.POST.get('correct_answer')
 
-    return render(request,'admin/add_questions.html')
-
-
-def registered_candidates(request):
-
-    return render(request,'admin/registered_candidates.html')
+        # Questions.objects.create(question_text=question_text,option1=option1,option2=option2,option3=option3,option4=option4,correct_answer=correct_answer)
+        if question_text and option1 and option2 and option3 and option4 and correct_answer:
+            Questions.objects.create(question_text=question_text,option1=option1,option2=option2,option3=option3,option4=option4,correct_answer=correct_answer)
+            message = 'Question added successfully!'
+        else: 
+            message = 'Please fill in all fields.'
+    return render(request,'admin/add_questions.html',{'message':message})
 
 
 def candidate_score(request):
 
     return render(request,'admin/candidate_score.html')
+
+def view_questions(request):
+    questions = Questions.objects.all()
+
+    return render(request,'admin/view_questions.html',{'questions':questions})
 
 
