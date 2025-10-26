@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Exam</title>
+    <link rel="stylesheet" href="{% static 'css/students/instruction.css' %}">
+</head>
+<body>
+
+    <div class="exam-box">
+        <h2>📘 Online Examination</h2>
+        <p class="welcome">Welcome, {{ user.username }}!</p>
+
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ul>
+                <li>Total Questions: 10</li>
+                <li>Each question carries 1 mark</li>
+                <li>No negative marking</li>
+                <li>Time limit: 10 minutes</li>
+                <li>Do not refresh or go back once the exam starts</li>
+            </ul>
+        </div>
+
+        <a href="{% url 'questions' %}" class="btn start-btn">Start Exam</a>
+        <a href="{% url 'question_home' %}" class="btn back-btn">Back to Home</a>
+    </div>
+
+</body>
+</html>
