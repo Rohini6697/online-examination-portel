@@ -149,6 +149,6 @@ def question_update(request, id):
         question.correct_answer = request.POST.get('correct_answer')
         question.save()
 
-        return redirect('view_questions')  # ✅ Redirect to list after saving
+        return redirect('view_questions')  
 
     return render(request, 'admin/question_update.html', {'question': question})
