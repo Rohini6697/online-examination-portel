@@ -32,4 +32,4 @@ class Questions(models.Model):
 
 
     def __str__(self):
-        return "{self.question_text} {self.correct_answer}"
+        return f"{self.question_text} {self.correct_answer}"

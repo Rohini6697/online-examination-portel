@@ -2,7 +2,7 @@ from .models import Profile, Questions
 from django import forms
 from django.contrib.auth import authenticate, login as auth_login
 
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import UserForm
 
@@ -50,9 +50,24 @@ def instruction(request):
 
     return render(request,'students/instruction.html')
 
-def questions(request):
+def questions(request,q_no=1):
+    total = Questions.objects.count() 
 
-    return render(request,'students/questions.html')
+    if q_no > total:
+        return redirect('result')  
+    question = get_object_or_404(Questions,id=q_no)
+    if request.method == 'POST':
+        selected_option = request.POST.get('answer')
+        score = request.session.get('session',0)
+
+        if selected_option == question.correct_answer:
+            score +=1
+        request.session['score'] = score
+        return redirect('questions', q_no=q_no + 1)
+
+
+    return render(request, 'students/questions.html', {'question': question, 'current': q_no, 'total': total})
+
 
 def admin_dashboard(request):
 
@@ -90,3 +105,6 @@ def view_questions(request):
     return render(request,'admin/view_questions.html',{'questions':questions})
 
 
+def result(request):
+
+    return render(request,'admin/result.html')

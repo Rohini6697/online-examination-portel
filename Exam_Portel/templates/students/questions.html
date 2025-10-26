@@ -24,10 +24,10 @@
         <h3>{{ question.question_text }}</h3>
 
         <!-- Question Form -->
-        <form method="post">
+        <form method="post" id="quizForm">
             {% csrf_token %}
             <label>
-                <input type="radio" name="answer" value="option1" required>
+                <input type="radio" name="answer" value="option1" >
                 {{ question.option1 }}
             </label><br>
 
