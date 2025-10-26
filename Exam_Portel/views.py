@@ -1,7 +1,7 @@
 from .models import Profile, Questions, Result
 from django import forms
 from django.contrib.auth import authenticate, login as auth_login
-
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import UserForm
@@ -18,7 +18,7 @@ def signup(request):
 
 
             # role = request.POST.get('role')
-            Profile.objects.create(user = user,role='user')
+            Profile.objects.create(user = user,fullname=form.cleaned_data.get('fullname') ,role='user')
             return redirect('signin')
     return render(request,'signup.html',{'form':form})
 
@@ -110,8 +110,11 @@ def add_questions(request):
 
 
 def candidate_score(request):
+    result = Result.objects.all().order_by('-attempt_date')
+    # profile = Profile.objects.all()
+    # user = request.user
 
-    return render(request,'admin/candidate_score.html')
+    return render(request,'admin/candidate_score.html',{'result':result})
 
 def view_questions(request):
     questions = Questions.objects.all()
@@ -120,5 +123,32 @@ def view_questions(request):
 
 
 def result(request):
+    result = Result.objects.filter(student=request.user).order_by('-attempt_date').first()
+    return render(request, 'students/result.html', {'result': result})
 
-    return render(request,'students/result.html')
+def view_result(request):
+    result = Result.objects.filter(student=request.user).order_by('-attempt_date').first()
+    return render(request,'students/view_result.html', {'result': result})
+
+
+def question_delete(request,id):
+    delete_candidate = Questions.objects.get(id=id)
+    delete_candidate.delete()
+    return redirect('view_questions')
+
+
+def question_update(request, id):
+    question = get_object_or_404(Questions, id=id)
+
+    if request.method == 'POST':
+        question.question_text = request.POST.get('question_text')
+        question.option1 = request.POST.get('option1')
+        question.option2 = request.POST.get('option2')
+        question.option3 = request.POST.get('option3')
+        question.option4 = request.POST.get('option4')
+        question.correct_answer = request.POST.get('correct_answer')
+        question.save()
+
+        return redirect('view_questions')  # ✅ Redirect to list after saving
+
+    return render(request, 'admin/question_update.html', {'question': question})

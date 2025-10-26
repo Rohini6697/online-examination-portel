@@ -14,4 +14,7 @@ urlpatterns = [
     path('candidate_score/',views.candidate_score,name='candidate_score'),
     path('view_questions/',views.view_questions,name='view_questions'),
     path('result/',views.result,name='result'),
+    path('view_result/',views.view_result,name='view_result'),
+    path('question_delete/<int:id>',views.question_delete,name='question_delete'),
+    path('question_update/<int:id>',views.question_update,name='question_update'),
 ]

@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.result-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 350px;
+}
+
+h2 {
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+.score-box {
+    background-color: #e8f5e9;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.score-box h3 {
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.message p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}

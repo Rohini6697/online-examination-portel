@@ -10,7 +10,7 @@ body {
 }
 
 /* Container card */
-.container {
+.box {
     background: #fff;
     padding: 40px 30px;
     width: 400px;
@@ -20,13 +20,13 @@ body {
 }
 
 /* Title */
-.container h2 {
+.box h2 {
     margin-bottom: 15px;
     color: #333;
 }
 
 /* Subtitle */
-.container p {
+.box p {
     color: #555;
     margin-bottom: 30px;
 }

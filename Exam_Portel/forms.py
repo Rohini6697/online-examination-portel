@@ -3,13 +3,14 @@ from .models import Profile
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
+    fullname = forms.CharField(required=False)
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     # role = forms.ChoiceField(choices=Profile.ROLL_CHOICES)
 
     class Meta:
         model = User
-        fields = ['username','email','password']
+        fields = ['username','email','password','fullname']
         help_texts = {
             'username' : None
         }
