@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students Scores</title>
+    <link rel="stylesheet" href="{% static 'css/admin/candidate_score.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Students Scores</h1>
+    <a href="{% url 'admin_dashboard' %}" class="back-btn">Back</a>
+</header>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Score</th>
+                <th>Test Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in scores %}
+            <tr>
+                <td>{{ record.student.fullname }}</td>
+                <td>{{ record.student.user.email }}</td>
+                <td>{{ record.score }}</td>
+                <td>{{ record.date|date:"M d, Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

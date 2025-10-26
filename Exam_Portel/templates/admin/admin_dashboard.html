@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/admin/admin_dashboard.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Admin Dashboard</h1>
+    <a href="{% url 'signin' %}" class="logout-btn">Logout</a>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Add Question</h2>
+        <p>Create new quiz questions for students.</p>
+        <a href="{% url 'add_questions' %}">Go</a>
+    </div>
+
+    <div class="card">
+        <h2>Students Scores</h2>
+        <p>Check quiz scores of all students.</p>
+        <a href="{% url 'candidate_score' %}">View</a>
+    </div>
+</div>
+
+</body>
+</html>

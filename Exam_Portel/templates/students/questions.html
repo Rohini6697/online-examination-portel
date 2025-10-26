@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
+    <!-- External CSS -->
     <link rel="stylesheet" href="{% static 'css/students/questions.css' %}">
 </head>
 <body>
@@ -15,21 +16,40 @@
 
         <!-- Timer -->
         <div class="timer">
-            Time Left: <span id="time"></span>
+            Time Left: <span id="time">00:00</span>
         </div>
 
-        <!-- Question Box -->
-        <div id="question-box">
-            <!-- Question & options will be dynamically loaded here via JS -->
-        </div>
+        <!-- Question Info -->
+        <h3>Question {{ current }} of {{ total }}</h3>
+        <h3>{{ question.question_text }}</h3>
 
-        <button id="next-btn" class="btn next-btn">Next</button>
+        <!-- Question Form -->
+        <form method="post">
+            {% csrf_token %}
+            <label>
+                <input type="radio" name="answer" value="option1" required>
+                {{ question.option1 }}
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="option2">
+                {{ question.option2 }}
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="option3">
+                {{ question.option3 }}
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="option4">
+                {{ question.option4 }}
+            </label><br>
+
+            <button type="submit" id="next-btn" class="btn next-btn">Next</button>
+        </form>
     </div>
 
-    <script>
-        const quizUrl = "{% url 'quiz_api' %}"; // API endpoint to get questions
-    </script>
     <script src="{% static 'js/students/questions.js' %}"></script>
-
 </body>
 </html>

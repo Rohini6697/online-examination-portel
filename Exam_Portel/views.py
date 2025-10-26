@@ -29,7 +29,11 @@ def signin(request):
         user = authenticate(request,username = username,password = password)
         if user is not None:
             auth_login(request,user)
-            return redirect('question_home')
+           
+            if user.is_superuser:
+                      return redirect('admin_dashboard')
+            else:
+                 return redirect('question_home')
         
     else:
         form = UserForm()
@@ -49,3 +53,26 @@ def instruction(request):
 def questions(request):
 
     return render(request,'students/questions.html')
+
+def admin_dashboard(request):
+
+    return render(request,'admin/admin_dashboard.html')
+
+
+
+
+def add_questions(request):
+
+    return render(request,'admin/add_questions.html')
+
+
+def registered_candidates(request):
+
+    return render(request,'admin/registered_candidates.html')
+
+
+def candidate_score(request):
+
+    return render(request,'admin/candidate_score.html')
+
+

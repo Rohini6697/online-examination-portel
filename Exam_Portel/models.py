@@ -21,7 +21,15 @@ class Questions(models.Model):
     option2 = models.CharField(max_length=100,null=True,blank=True)
     option3 = models.CharField(max_length=100,null=True,blank=True)
     option4 = models.CharField(max_length=100,null=True,blank=True)
-    correct_answer = models.CharField(max_length=100,null=True,blank=True)
+    ANSWER_CHOICES = (
+        ('option1', 'Option 1'),
+        ('option2', 'Option 2'),
+        ('option3', 'Option 3'),
+        ('option4', 'Option 4'),
+    )
+
+    correct_answer = models.CharField(max_length=10, choices=ANSWER_CHOICES)
+
 
     def __str__(self):
         return "{self.question_text} {self.correct_answer}"
