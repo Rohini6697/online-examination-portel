@@ -53,7 +53,8 @@ def instruction(request):
     return render(request,'students/instruction.html')
 
 def questions(request,q_no=1):
-    total = Questions.objects.count() 
+    questions = list(Questions.objects.all().order_by('id'))
+    total = len(questions)
 
     if q_no > total:
         score = request.session.get('score', 0)
@@ -69,7 +70,7 @@ def questions(request,q_no=1):
         request.session['score'] = 0
 
         return redirect('result')  
-    question = get_object_or_404(Questions,id=q_no)
+    question = questions[q_no - 1]
     if request.method == 'POST':
         selected_option = request.POST.get('answer')
         score = request.session.get('score', 0)
