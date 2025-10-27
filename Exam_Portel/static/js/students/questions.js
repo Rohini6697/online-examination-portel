@@ -1,4 +1,4 @@
-let total_time = 10; // seconds
+let total_time = 20; // seconds
 const quizForm = document.getElementById('quizForm');
 const timerDisplay = document.getElementById('time');
 
